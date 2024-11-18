@@ -10,6 +10,8 @@ import UIKit
 
 class CalculateViewController: UIViewController {
 	
+	var billBrain = BillBrain()
+	
 	// MARK: - Outlets
 	@IBOutlet weak var billTextField: UITextField!
 	
@@ -29,34 +31,16 @@ class CalculateViewController: UIViewController {
 	
 	// MARK: - Actions
 	@IBAction func tipChanged(_ sender: UIButton) {
-		let tipPercentage: Double
-		switch sender.currentTitle ?? nil {
-		case "0%" :
-			zeroPctButton.isSelected = true
-			tenPctButton.isSelected = false
-			twentyPctButton.isSelected = false
-			tipPercentage = 0.0
-			
-		case "10%":
-			zeroPctButton.isSelected = false
-			tenPctButton.isSelected = true
-			twentyPctButton.isSelected = false
-			tipPercentage = 0.1
-			
-		case "20%" :
-			zeroPctButton.isSelected = false
-			tenPctButton.isSelected = false
-			twentyPctButton.isSelected = true
-			tipPercentage = 0.2
-			
-		default:
-			print("value not recognized")
-			tipPercentage = 0.0
-		}
-		print("tipPercentage: \(tipPercentage)")
+		billBrain.tipSelected(sender.currentTitle!)
+		zeroPctButton.isSelected =  billBrain.isTipSelected(0.0)
+		tenPctButton.isSelected = billBrain.isTipSelected(0.1)
+		twentyPctButton.isSelected = billBrain.isTipSelected(0.2)
 	}
 	
 	@IBAction func stepperValueChanged(_ sender: UIStepper) {
+		let stepperValue = Int(sender.value)
+		billBrain.stepperChanged(stepperValue)
+		splitNumberLabel.text = "\(stepperValue)"
 	}
 	
 	@IBAction func calculatePressed(_ sender: UIButton) {
