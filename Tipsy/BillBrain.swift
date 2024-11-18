@@ -27,22 +27,27 @@ struct BillBrain {
 			print("value not recognized \(tipPercentage)")
 			bill.tip = 0.0
 		}
-		print("tip: \(bill.tip)")
 	}
 	
 	mutating func stepperChanged(_ people: Int) {
 		bill.people = people
-		print("people: \(bill.people)")
 	}
 	
 	func isTipSelected(_ tip: Double) -> Bool {
 		return bill.tip == tip
 	}
 	
-	mutating func calculate(_ total: Double) {
+	mutating func setTotal(_ total: Double) {
 		bill.total = total
+	}
+	
+	func getTotalPerPerson() -> String {
 		let totalPerPerson = bill.getTotalPerPerson()
-		print("total: \(bill.total)")
-		print("totalPerPerson: \(totalPerPerson)")
+		return totalPerPerson
+	}
+	
+	func getSettings() -> String {
+		let tipPercentage = Int(bill.tip * 100)
+		return "Split between \(bill.people), with \(tipPercentage)% tip."
 	}
 }
