@@ -31,6 +31,7 @@ class CalculateViewController: UIViewController {
 	
 	// MARK: - Actions
 	@IBAction func tipChanged(_ sender: UIButton) {
+		billTextField.endEditing(true)
 		billBrain.tipSelected(sender.currentTitle!)
 		zeroPctButton.isSelected =  billBrain.isTipSelected(0.0)
 		tenPctButton.isSelected = billBrain.isTipSelected(0.1)
@@ -38,13 +39,15 @@ class CalculateViewController: UIViewController {
 	}
 	
 	@IBAction func stepperValueChanged(_ sender: UIStepper) {
+		billTextField.endEditing(true)
 		let stepperValue = Int(sender.value)
 		billBrain.stepperChanged(stepperValue)
 		splitNumberLabel.text = "\(stepperValue)"
 	}
 	
 	@IBAction func calculatePressed(_ sender: UIButton) {
+		let total = Double(billTextField.text ?? "0.0")
+		billBrain.calculate(total!)
 	}
-	
 }
 

@@ -38,4 +38,11 @@ struct BillBrain {
 	func isTipSelected(_ tip: Double) -> Bool {
 		return bill.tip == tip
 	}
+	
+	mutating func calculate(_ total: Double) {
+		bill.total = total
+		let totalPerPerson = bill.getTotalPerPerson()
+		print("total: \(bill.total)")
+		print("totalPerPerson: \(totalPerPerson)")
+	}
 }

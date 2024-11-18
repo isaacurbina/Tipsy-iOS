@@ -12,4 +12,9 @@ struct Bill {
 	var total: Double = 0.0
 	var tip: Double = 0.1
 	var people: Int = 2
+	
+	func getTotalPerPerson() -> String {
+		let totalPerPerson = (total * (1 + tip)) / Double(people)
+		return String(format: "%.2f", totalPerPerson)
+	}
 }
