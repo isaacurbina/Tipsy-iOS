@@ -29,6 +29,15 @@ class CalculateViewController: UIViewController {
 		// Do any additional setup after loading the view.
 	}
 	
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		if segue.identifier == "calculateTotalPerPerson" {
+			if let destinationVC = segue.destination as? ResultsViewController {
+				destinationVC.totalPerPerson = billBrain.getTotalPerPerson()
+				destinationVC.settings = billBrain.getSettings()
+			}
+		}
+	}
+	
 	// MARK: - Actions
 	@IBAction func tipChanged(_ sender: UIButton) {
 		billTextField.endEditing(true)
@@ -47,7 +56,8 @@ class CalculateViewController: UIViewController {
 	
 	@IBAction func calculatePressed(_ sender: UIButton) {
 		let total = Double(billTextField.text ?? "0.0")
-		billBrain.calculate(total!)
+		billBrain.setTotal(total!)
+		self.performSegue(withIdentifier: "calculateTotalPerPerson", sender: self)
 	}
 }
 
